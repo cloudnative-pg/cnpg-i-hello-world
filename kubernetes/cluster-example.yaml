@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster-example
+spec:
+  instances: 3
+
+  plugins:
+  - name: cnpg-i-hello-world.cloudnativepg.com
+    parameters:
+      pvc: backups-pvc
+      image: cnpg-i-hello-world:latest
+      imagePullPolicy: Never
+
+  storage:
+    size: 1Gi
