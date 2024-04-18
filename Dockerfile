@@ -1,5 +1,5 @@
 # Step 1: build image
-FROM golang:1.21 AS builder
+FROM golang:1.22 AS builder
 
 # Cache the dependencies
 WORKDIR /app

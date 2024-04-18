@@ -10,7 +10,7 @@ The Identity interface declares the features supported by the plugin. This infor
 
 ### Operator (ClusterLifecycle)
 
-This feature enables the plugin to receive events about the cluster creation and mutations, this is defined by the following signatures:
+This feature enables the plugin to receive events about the cluster creation and mutations, this is defined by the following [signatures](https://github.com/cloudnative-pg/cnpg-i/blob/main/proto/operator.proto):
 ```
   // ValidateCreate improves the behaviour of the validating webhook that
   // is called on creation of the Cluster resources

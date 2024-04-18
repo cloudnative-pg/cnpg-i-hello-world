@@ -35,4 +35,9 @@ lifecycle.RegisterOperatorLifecycleServer(server, lifecycleImpl.Implementation{}
 
 # Local Testing
 
-TODO
+The repository provides a `Makefile` that contains several helpful commands to execute the local testing of the plugin,
+it assumes that you did setup a cluster running CNPG with the instructions contained on the CNPG operator repository.
+
+By executing `make run` a docker image containing the executable of the repository will be built and will be loaded inside
+the kind cluster, after that the operator deployment will be patched with a sidecar containing the hello-world
+plugin.
