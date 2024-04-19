@@ -4,12 +4,14 @@ package lifecycle
 import (
 	"context"
 	"fmt"
+
 	"github.com/cloudnative-pg/cloudnative-pg/pkg/management/log"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
+	"github.com/cloudnative-pg/cnpg-i/pkg/lifecycle"
+
 	"github.com/cloudnative-pg/cnpg-i-hello-world/internal/config"
 	"github.com/cloudnative-pg/cnpg-i-hello-world/internal/utils"
 	"github.com/cloudnative-pg/cnpg-i-hello-world/pkg/metadata"
-	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
-	"github.com/cloudnative-pg/cnpg-i/pkg/lifecycle"
 )
 
 // Implementation is the implementation of the lifecycle handler
@@ -54,6 +56,7 @@ func (impl Implementation) LifecycleHook(
 		return nil, fmt.Errorf("no operation set")
 	}
 
+	// nolint: gocritic
 	switch kind {
 	case "Pod":
 		switch *operation {

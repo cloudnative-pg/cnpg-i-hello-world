@@ -1,4 +1,4 @@
-__# Implementation Workflow
+# Implementation Workflow
 
 ## Identity
 
@@ -20,6 +20,17 @@ The `OperatorLifecycleServer` interface requires several methods:
 - `LifecycleHook`, is the function that will be invoked with the `OperatorLifecycleRequest`. In this function the plugin is expected
 to do a pattern matching with the `Kind` and the operation `Type` so it can proceed to execute the proper logic.
 
+## Register the plugin webhooks on cluster creation and mutation
+
+The operator interface offers a way for the plugin to interact with the Cluster resource webhooks.
+This is done by implementing the [operator](https://github.com/cloudnative-pg/cnpg-i/blob/main/proto/operator.proto)
+interfaces `MutateCluster`, `ValidateClusterCreate` and `ValidateClusterChange`.
+
+- `MutateCluster` it should set the defaults parameters for the plugin when needed
+- `ValidateClusterCreate` and `ValidateClusterChange` are used to execute the webhook validation logic for the plugin
+fields
+
+In the example this is done in the pkg `internal/operator`
 
 ## Startup Command
 
@@ -27,9 +38,10 @@ to do a pattern matching with the `Kind` and the operation `Type` so it can proc
 ```
 pluginhelper.CreateMainCmd(identity.Implementation{}, func(server *grpc.Server)
 ```
-2. Register any implementations for the declared features within the callback function. In the hello-world example would be the
-Lifecycle Service:
+2. Register any implementations for the declared features within the callback function. In the hello-world example would 
+be the RegisterOperatorServer and the Lifecycle Service:
 ```
+operator.RegisterOperatorServer(server, operatorImpl.Implementation{})
 lifecycle.RegisterOperatorLifecycleServer(server, lifecycleImpl.Implementation{})
 ```
 

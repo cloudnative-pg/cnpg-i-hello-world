@@ -12,7 +12,6 @@ type Implementation struct {
 }
 
 // GetCapabilities gets the capabilities of this operator lifecycle hook
-// TODO: implement in the hello-world
 func (Implementation) GetCapabilities(
 	context.Context,
 	*operator.OperatorCapabilitiesRequest,
@@ -30,27 +29,6 @@ func (Implementation) GetCapabilities(
 				Type: &operator.OperatorCapability_Rpc{
 					Rpc: &operator.OperatorCapability_RPC{
 						Type: operator.OperatorCapability_RPC_TYPE_VALIDATE_CLUSTER_CHANGE,
-					},
-				},
-			},
-			{
-				Type: &operator.OperatorCapability_Rpc{
-					Rpc: &operator.OperatorCapability_RPC{
-						Type: operator.OperatorCapability_RPC_TYPE_MUTATE_CLUSTER,
-					},
-				},
-			},
-			{
-				Type: &operator.OperatorCapability_Rpc{
-					Rpc: &operator.OperatorCapability_RPC{
-						Type: operator.OperatorCapability_RPC_TYPE_MUTATE_POD,
-					},
-				},
-			},
-			{
-				Type: &operator.OperatorCapability_Rpc{
-					Rpc: &operator.OperatorCapability_RPC{
-						Type: operator.OperatorCapability_RPC_TYPE_MUTATE_POD,
 					},
 				},
 			},

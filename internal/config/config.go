@@ -2,9 +2,10 @@ package config
 
 import (
 	"encoding/json"
+	"reflect"
+
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
 	"github.com/cloudnative-pg/cnpg-i/pkg/operator"
-	"reflect"
 )
 
 const (
@@ -53,7 +54,7 @@ func FromParameters(
 
 	configuration.applyDefaults()
 
-	return configuration, nil
+	return configuration, validationErrors
 }
 
 // ValidateChanges validates the changes between the old configuration to the

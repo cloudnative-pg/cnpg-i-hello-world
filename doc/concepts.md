@@ -2,7 +2,8 @@
 
 ### Identity
 
-The Identity interface declares the features supported by the plugin. This information is crucial for the operator to discover the plugin's capabilities during startup.
+The Identity interface declares the features supported by the plugin. This information is crucial for the operator to 
+discover the plugin's capabilities during startup.
 
 [API REFERENCE](https://github.com/cloudnative-pg/cnpg-i/blob/main/proto/identity.proto)
 
