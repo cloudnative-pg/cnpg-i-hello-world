@@ -25,7 +25,7 @@ func (Implementation) MutateCluster(
 	}
 
 	config, valErrs := config.FromParameters(helper)
-	if valErrs != nil {
+	if len(valErrs) > 0 {
 		return nil, valErrs[0]
 	}
 

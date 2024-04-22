@@ -84,7 +84,7 @@ func (impl Implementation) reconcileMetadata(
 		return nil, err
 	}
 	configuration, valErrs := config.FromParameters(helper)
-	if valErrs != nil {
+	if len(valErrs) > 0 {
 		return nil, valErrs[0]
 	}
 	mutatedPod := helper.GetPod().DeepCopy()

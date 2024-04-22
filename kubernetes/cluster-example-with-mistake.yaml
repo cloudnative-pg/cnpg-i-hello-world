@@ -15,7 +15,8 @@ spec:
         }
       annotations: |
         {
-          "first-annotation": "first-annotation-value"
+          "first-annotation": "first-annotation-value",
+          this is a mistake
         }
 
   storage:

@@ -2,50 +2,82 @@
 
 ## Identity
 
-1. Define a struct inside the `internal/identity` package that implements the `pluginhelper.IdentityServer` interface.
+1. Define a struct inside the `internal/identity` package that implements
+   the `pluginhelper.IdentityServer` interface.
+
 2. Implement the following methods:
-    - `GetPluginMetadata`: Return human-readable information about the plugin.
-    - `GetPluginCapabilities`: Specify the features supported by the plugin.
-      In the hello-world example, the `PluginCapability_Service_TYPE_LIFECYCLE_SERVICE` is defined [here](internal/lifecycle/lifecycle.go).
-    - `Probe`: Indicate whether the plugin is ready to serve requests. Since the hello-example plugin is stateless, it
-    - will always return ready.
+
+    - `GetPluginMetadata`: return human-readable information about the plugin.
+    - `GetPluginCapabilities`: specify the features supported by the plugin.
+      In the hello-world example, the
+      `PluginCapability_Service_TYPE_LIFECYCLE_SERVICE` is defined
+      [in the corresponding Go file](internal/lifecycle/lifecycle.go).
+    - `Probe`: Indicate whether the plugin is ready to serve requests; this
+      example is stateless, so it will always be ready.
 
 ## Implement the supported features
 
-Since the hello-world example supports the lifecycle service capabilities, implement the `OperatorLifecycleServer`
-interface inside the `internal/lifecycle` package.
+This example implements the lifecycle service capabilities,
+and the `OperatorLifecycleServer` interface is implemented inside the
+`internal/lifecycle` package.
 
 The `OperatorLifecycleServer` interface requires several methods:
-- `GetCapabilities`: Describe the resources and operations for which the plugin should be notified.
-- `LifecycleHook`: This function will be invoked with the `OperatorLifecycleRequest`.
-In this function, the plugin is expected to do pattern matching with the `Kind` and the operation `Type` so it can
-proceed to execute the proper logic.
+
+- `GetCapabilities`: describe the resources and operations the plugin
+  should be notified for
+
+- `LifecycleHook`: is invoked for every operation against the
+  Kubernetes API server that matches the specifications
+  returned by `GetCapabilities`
+
+  In this function, the plugin is expected to do pattern matching
+  using the `Kind` and the operation `Type` and proceed with the
+  proper logic.
 
 ## Register the plugin webhooks on cluster creation and mutation
 
-The operator interface offers a way for the plugin to interact with the Cluster resource webhooks.
-Implement the [operator](https://github.com/cloudnative-pg/cnpg-i/blob/main/proto/operator.proto)
-interfaces `MutateCluster`, `ValidateClusterCreate`, and `ValidateClusterChange`.
+The operator interface offers a way for the plugin to interact with
+the Cluster resource webhooks.
 
-- `MutateCluster`: Set the default parameters for the plugin when needed.
-- `ValidateClusterCreate` and `ValidateClusterChange`: Execute the webhook validation logic for the plugin fields.
+Do that, the plugin should implement the [operator](https://github.com/cloudnative-pg/cnpg-i/blob/main/proto/operator.proto)
+interface, specifically the `MutateCluster`, `ValidateClusterCreate`,
+and `ValidateClusterChange` rpc calls.
 
-In the example, this is done in the package `internal/operator`.
+- `MutateCluster`: enriches the plugin defaulting webhook
+
+- `ValidateClusterCreate` and `ValidateClusterChange`: enriches
+  the plugin validation logic.
+
+The package `internal/operator` implements this interface.
 
 ## Startup Command
 
-1. Invoke `pluginhelper.CreateMainCmd` with the implemented Identity struct created during the `Identity` step.
-`pluginhelper.CreateMainCmd(identity.Implementation{}, func(server *grpc.Server)`
-2. Register any implementations for the declared features within the callback function. In the hello-world example, it would be the `RegisterOperatorServer` and the Lifecycle Service:
+This example plugin is installed in a sidecar of the operator, and its
+main command is implemented in the `main.go` file.
+
+This function uses the plugin helper library to create a GRPC server.
+
+Plugin developers are expected to use the `pluginhelper.CreateMainCmd`
+to implement the `main` function, passing an implemented `Identity`
+struct.
+
+Further implementations can be registered within the callback function.
+
+In the example we propose, that's done for  **operator** and for
+the **lifecycle** services in `cmd/plugin/plugin.go`:
+
 ```
 operator.RegisterOperatorServer(server, operatorImpl.Implementation{})
 lifecycle.RegisterOperatorLifecycleServer(server, lifecycleImpl.Implementation{})
 ```
 
-# Local Testing
+# Testing the plugin locally
 
-The repository provides a `Makefile` that contains several helpful commands to execute the local testing of the plugin.
-It assumes that you have set up a cluster running CNPG with the instructions contained in the CNPG operator repository.
+The repository provides a `Makefile` that contains several helpful
+commands to test the plugin in a CNPG development environment.
 
-By executing `make run`, a Docker image containing the executable of the repository will be built and loaded inside
-the kind cluster. After that, the operator deployment will be patched with a sidecar containing the hello-world plugin.
+By executing `make run`, a Docker image containing the executable
+of the repository will be built and loaded inside the kind cluster.
+
+Having done that, the operator deployment will be patched with a sidecar
+containing the hello-world plugin.

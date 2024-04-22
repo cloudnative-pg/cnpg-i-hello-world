@@ -28,22 +28,20 @@ func FromParameters(
 	var labels map[string]string
 	if helper.Parameters[labelsParameter] != "" {
 		if err := json.Unmarshal([]byte(helper.Parameters[labelsParameter]), &labels); err != nil {
-			validationErrors = append(validationErrors, &operator.ValidationError{
-				PathComponents: nil,
-				Value:          "labels",
-				Message:        err.Error(),
-			})
+			validationErrors = append(
+				validationErrors,
+				helper.ValidationErrorForParameter(labelsParameter, err.Error()),
+			)
 		}
 	}
 
 	var annotations map[string]string
 	if helper.Parameters[annotationParameter] != "" {
 		if err := json.Unmarshal([]byte(helper.Parameters[annotationParameter]), &annotations); err != nil {
-			validationErrors = append(validationErrors, &operator.ValidationError{
-				PathComponents: nil,
-				Value:          "annotations",
-				Message:        err.Error(),
-			})
+			validationErrors = append(
+				validationErrors,
+				helper.ValidationErrorForParameter(annotationParameter, err.Error()),
+			)
 		}
 	}
 
@@ -64,7 +62,7 @@ func ValidateChanges(
 	newConfiguration *Configuration,
 	helper *pluginhelper.Data,
 ) (result []*operator.ValidationError) {
-	if reflect.DeepEqual(oldConfiguration.Labels, newConfiguration.Labels) {
+	if !reflect.DeepEqual(oldConfiguration.Labels, newConfiguration.Labels) {
 		result = append(
 			result,
 			helper.ValidationErrorForParameter(labelsParameter, "Labels cannot be changed"))
