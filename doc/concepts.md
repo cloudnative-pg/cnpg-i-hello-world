@@ -58,7 +58,7 @@ This feature allows the plugin to implement new backup methods:
 
 ### Custom reconcilers
 
-This feature allows the plugin to register enhance the operator
+This feature allows the plugin to enhance the operator
 reconciliation for resources managed by CNPG, such as Clusters
 and Backups.
 

@@ -12,7 +12,7 @@
       In the hello-world example, the
       `PluginCapability_Service_TYPE_LIFECYCLE_SERVICE` is defined
       [in the corresponding Go file](internal/lifecycle/lifecycle.go).
-    - `Probe`: Indicate whether the plugin is ready to serve requests; this
+    - `Probe`: indicate whether the plugin is ready to serve requests; this
       example is stateless, so it will always be ready.
 
 ## Implement the supported features

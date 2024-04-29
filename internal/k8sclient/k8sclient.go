@@ -37,12 +37,12 @@ func Get() (client.Client, error) {
 	mu.Lock()
 	defer mu.Unlock()
 
-	config, err := config.GetConfig()
+	currentConfig, err := config.GetConfig()
 	if err != nil {
 		return nil, err
 	}
 
-	newClient, err := client.New(config, client.Options{Scheme: scheme})
+	newClient, err := client.New(currentConfig, client.Options{Scheme: scheme})
 	if err != nil {
 		return nil, err
 	}
