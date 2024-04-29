@@ -1,0 +1,5 @@
+bin/
+dist/
+.env
+.vscode/
+.idea/
