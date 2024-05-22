@@ -11,7 +11,7 @@
     - `GetPluginCapabilities`: specify the features supported by the plugin.
       In the hello-world example, the
       `PluginCapability_Service_TYPE_LIFECYCLE_SERVICE` is defined
-      [in the corresponding Go file](internal/lifecycle/lifecycle.go).
+      in the corresponding Go [file](../internal/lifecycle/lifecycle.go).
     - `Probe`: indicate whether the plugin is ready to serve requests; this
       example is stateless, so it will always be ready.
 
