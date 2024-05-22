@@ -11,7 +11,7 @@ capabilities during startup.
 It exposes:
 - A way for the plugins to report readiness probe. The readiness is a requirement to receive events.
 It is expected that the plugins always report back the most accurate readiness data available.
-- The Plugin reported capabilities, that will dictate which subsequent calls the plugin will receive
+- The plugin reported capabilities, that will dictate which subsequent calls the plugin will receive.
 - Metadata about the Plugin
 
 [API reference](https://github.com/cloudnative-pg/cnpg-i/blob/main/proto/identity.proto)
