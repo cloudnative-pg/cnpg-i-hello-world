@@ -9,7 +9,7 @@ This information is crucial for the operator to discover the plugin's
 capabilities during startup.
 
 It exposes:
-- A way for the Plugin to report readiness probe. The readiness is a requirement ot receiving events.
+- A way for the plugins to report readiness probe. The readiness is a requirement to receive events.
 It is expected that the plugins always report back the most accurate readiness data available.
 - The Plugin reported capabilities, that will dictate which subsequent calls the plugin will receive
 - Metadata about the Plugin
