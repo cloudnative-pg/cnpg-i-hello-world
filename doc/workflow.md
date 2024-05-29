@@ -1,5 +1,12 @@
 # Implementation Workflow
 
+## Notes about the hello-world project
+
+The hello-world project serves as an introductory guide to bootstrapping a Plugin and leveraging Lifecycle hooks within a development environment.
+While similar results of the provided example can be achieved through simpler means like mutating webhooks or CNPG built-in features, this project
+is specifically designed to expose developers to the Plugin workflow. By understanding how Lifecycle hooks operate in conjunction
+with other interfaces, developers can better grasp how to implement complex resource changes in real-world applications.
+
 ## Identity
 
 1. Define a struct inside the `internal/identity` package that implements
