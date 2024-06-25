@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-world
+  name: hello-world
+  namespace: cnpg-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - image: cnpg-i-hello-world:latest
+        imagePullPolicy: Never
+        name: cnpg-i-hello-world
+        ports:
+        - containerPort: 9090
+          protocol: TCP
+        args:
+        - plugin
+        - --server-cert=/server/tls.crt
+        - --server-key=/server/tls.key
+        - --client-cert=/client/tls.crt
+        - --server-address=:9090
+        volumeMounts:
+        - mountPath: /server
+          name: server
+        - mountPath: /client
+          name: client
+        resources: {}
+      volumes:
+      - name: server
+        secret:
+          secretName: helloworld-server-tls
+      - name: client
+        secret:
+          secretName: helloworld-client-tls
+status: {}
