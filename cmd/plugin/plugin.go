@@ -21,6 +21,11 @@ func NewCmd() *cobra.Command {
 		return nil
 	})
 
+	// If you want to provide your own logr.Logger here, inject it into a context.Context
+	// with logr.NewContext(ctx, logger) and pass it to cmd.SetContext(ctx)
+
+	// Additional custom behaviour can be added by wrapping cmd.PersistentPreRun or cmd.Run
+
 	cmd.Use = "plugin"
 
 	return cmd
