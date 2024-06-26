@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/cloudnative-pg/cloudnative-pg/pkg/management/log"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/logging"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
 	"github.com/cloudnative-pg/cnpg-i/pkg/lifecycle"
 
@@ -75,7 +75,7 @@ func (impl Implementation) reconcileMetadata(
 	ctx context.Context,
 	request *lifecycle.OperatorLifecycleRequest,
 ) (*lifecycle.OperatorLifecycleResponse, error) {
-	logger := log.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
+	logger := logging.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
 	helper, err := pluginhelper.NewDataBuilder(
 		metadata.PluginName,
 		request.ClusterDefinition,
@@ -105,7 +105,7 @@ func (impl Implementation) reconcileMetadata(
 		return nil, err
 	}
 
-	logger.Debug("generated patch", "content", string(patch), "configuration", configuration)
+	logger.V(0).Info("generated patch", "content", string(patch), "configuration", configuration)
 
 	return &lifecycle.OperatorLifecycleResponse{
 		JsonPatch: patch,
