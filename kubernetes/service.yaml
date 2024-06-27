@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello-world
+    cnpg.io/pluginName: cnpg-i-hello-world.cloudnative-pg.io
+  annotations:
+    cnpg.io/pluginClientSecret: helloworld-client-tls
+    cnpg.io/pluginServerSecret: helloworld-server-tls
+    cnpg.io/pluginPort: "9090"
+  name: hello-world
+  namespace: cnpg-system
+spec:
+  ports:
+  - port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: hello-world
+status:
+  loadBalancer: {}

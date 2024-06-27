@@ -20,7 +20,6 @@ func NewCmd() *cobra.Command {
 		lifecycle.RegisterOperatorLifecycleServer(server, lifecycleImpl.Implementation{})
 		return nil
 	})
-
 	cmd.Use = "plugin"
 
 	return cmd
