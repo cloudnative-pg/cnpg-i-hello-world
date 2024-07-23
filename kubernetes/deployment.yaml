@@ -4,7 +4,6 @@ metadata:
   labels:
     app: hello-world
   name: hello-world
-  namespace: cnpg-system
 spec:
   replicas: 1
   selector:

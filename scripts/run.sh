@@ -14,5 +14,4 @@ current_context=$(kubectl config view --raw -o json | jq -r '."current-context"'
 kind load docker-image --name=${current_context} cnpg-i-hello-world:${VERSION:-latest}
 
 # Now we deploy the plugin inside the `cnpg-system` workspace
-kubectl apply -f kubernetes/
-kubectl rollout restart deployment/hello-world -n cnpg-system
+kubectl apply -k kubernetes/
