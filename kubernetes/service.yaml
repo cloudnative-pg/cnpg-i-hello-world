@@ -9,7 +9,6 @@ metadata:
     cnpg.io/pluginServerSecret: helloworld-server-tls
     cnpg.io/pluginPort: "9090"
   name: hello-world
-  namespace: cnpg-system
 spec:
   ports:
   - port: 9090
