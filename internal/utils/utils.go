@@ -2,7 +2,7 @@ package utils
 
 import "encoding/json"
 
-// GetKind gets the Kubernetes object kind from its JSON representation
+// GetKind gets the Kubernetes object kind from its JSON representation.
 func GetKind(definition []byte) (string, error) {
 	var genericObject struct {
 		Kind string `json:"kind"`

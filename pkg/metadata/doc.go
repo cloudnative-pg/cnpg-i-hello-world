@@ -3,10 +3,10 @@ package metadata
 
 import "github.com/cloudnative-pg/cnpg-i/pkg/identity"
 
-// PluginName is the name of the plugin
+// PluginName is the name of the plugin.
 const PluginName = "cnpg-i-hello-world.cloudnative-pg.io"
 
-// Data is the metadata of this plugin
+// Data is the metadata of this plugin.
 var Data = identity.GetPluginMetadataResponse{
 	Name:          PluginName,
 	Version:       "0.0.1",

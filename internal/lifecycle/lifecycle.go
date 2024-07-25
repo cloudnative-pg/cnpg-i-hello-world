@@ -47,16 +47,16 @@ func (impl Implementation) LifecycleHook(
 	ctx context.Context,
 	request *lifecycle.OperatorLifecycleRequest,
 ) (*lifecycle.OperatorLifecycleResponse, error) {
-	kind, err := utils.GetKind(request.ObjectDefinition)
+	kind, err := utils.GetKind(request.GetObjectDefinition())
 	if err != nil {
 		return nil, err
 	}
-	operation := request.OperationType.Type.Enum()
+	operation := request.GetOperationType().GetType().Enum()
 	if operation == nil {
 		return nil, fmt.Errorf("no operation set")
 	}
 
-	// nolint: gocritic
+	//nolint: gocritic
 	switch kind {
 	case "Pod":
 		switch *operation {
@@ -78,8 +78,8 @@ func (impl Implementation) reconcileMetadata(
 	logger := logging.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
 	helper, err := pluginhelper.NewDataBuilder(
 		metadata.PluginName,
-		request.ClusterDefinition,
-	).WithPod(request.ObjectDefinition).Build()
+		request.GetClusterDefinition(),
+	).WithPod(request.GetObjectDefinition()).Build()
 	if err != nil {
 		return nil, err
 	}

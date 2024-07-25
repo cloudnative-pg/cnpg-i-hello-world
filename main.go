@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+
 	"github.com/cloudnative-pg/cnpg-i-hello-world/cmd/plugin"
 )
 

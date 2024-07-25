@@ -13,7 +13,7 @@ const (
 	annotationParameter = "annotations"
 )
 
-// Configuration represents the plugin configuration parameters
+// Configuration represents the plugin configuration parameters.
 type Configuration struct {
 	Labels      map[string]string
 	Annotations map[string]string
