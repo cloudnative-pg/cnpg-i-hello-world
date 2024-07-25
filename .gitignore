@@ -3,4 +3,5 @@ dist/
 .env
 .vscode/
 .idea/
-cnpg-i-hello-world
+.task/
+manifest.yaml
