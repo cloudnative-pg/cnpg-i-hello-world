@@ -5,7 +5,7 @@ tasks:
     desc: Run golangci-lint
     env:
       # renovate: datasource=git-refs depName=golangci-lint lookupName=https://github.com/sagikazarmark/daggerverse currentValue=main
-      DAGGER_GOLANGCI_LINT_VERSION: 447a362a4fb98d05bbbeb8a290ed9aff7c5eccab
+      DAGGER_GOLANGCI_LINT_SHA: 447a362a4fb98d05bbbeb8a290ed9aff7c5eccab
     cmds:
       - >
         GITHUB_REF= dagger -s call -m github.com/sagikazarmark/daggerverse/golangci-lint@${DAGGER_GOLANGCI_LINT_SHA}
@@ -53,10 +53,10 @@ tasks:
       # renovate: datasource=docker depName=golang versioning=semver
       GOLANG_IMAGE_VERSION: 1.22.5
       # renovate: datasource=git-refs depName=gotest lookupName=https://github.com/Excoriate/daggerverse currentValue=main
-      DAGGER_GOTEST_SHA: 48daa9c0fa3d0b61bdd9fc8df4f03f2c7eae4d97
+      DAGGER_GOTEST_SHA: 90a5d911a70510f9004544d4a25d39d917f1f668
     cmds:
       - >
-        GITHUB_REF= dagger -s call -m github.com/Excoriate/daggerverse/gotest@90a5d911a70510f9004544d4a25d39d917f1f668
+        GITHUB_REF= dagger -s call -m github.com/Excoriate/daggerverse/gotest@${DAGGER_GOTEST_SHA}
         base --image-url golang:${GOLANG_IMAGE_VERSION}
         with-cgo-disabled
         run-go-test --src .
