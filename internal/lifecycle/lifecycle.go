@@ -3,7 +3,7 @@ package lifecycle
 
 import (
 	"context"
-	"fmt"
+	"errors"
 
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/logging"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
@@ -53,7 +53,7 @@ func (impl Implementation) LifecycleHook(
 	}
 	operation := request.GetOperationType().GetType().Enum()
 	if operation == nil {
-		return nil, fmt.Errorf("no operation set")
+		return nil, errors.New("no operation set")
 	}
 
 	//nolint: gocritic

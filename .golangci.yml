@@ -19,9 +19,18 @@ linters:
   disable:
     - depguard
     - execinquery
+    - exhaustive
     - exhaustruct
+    - err113
+    - forbidigo
     - funlen
+    - gochecknoglobals
+    - gochecknoinits
+    - godot
     - gomnd
+    - ireturn
+    - varnamelen
+    - wrapcheck
     - wsl
 
 run:

@@ -69,7 +69,7 @@ tasks:
       - spellcheck
       - commitlint
       - uncommitted
-#      - lint
+      - lint
       - go-test
 
   publish:

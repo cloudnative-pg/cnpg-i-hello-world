@@ -13,7 +13,7 @@ const (
 	annotationParameter = "annotations"
 )
 
-// Configuration represents the plugin configuration parameters.
+// Configuration represents the plugin configuration parameters
 type Configuration struct {
 	Labels      map[string]string
 	Annotations map[string]string
@@ -61,14 +61,16 @@ func ValidateChanges(
 	oldConfiguration *Configuration,
 	newConfiguration *Configuration,
 	helper *pluginhelper.Data,
-) (result []*operator.ValidationError) {
+) []*operator.ValidationError {
+	validationErrors := make([]*operator.ValidationError, 0)
+
 	if !reflect.DeepEqual(oldConfiguration.Labels, newConfiguration.Labels) {
-		result = append(
-			result,
+		validationErrors = append(
+			validationErrors,
 			helper.ValidationErrorForParameter(labelsParameter, "Labels cannot be changed"))
 	}
 
-	return result
+	return validationErrors
 }
 
 // applyDefaults fills the configuration with the defaults
@@ -98,5 +100,6 @@ func (config *Configuration) ToParameters() (map[string]string, error) {
 	}
 	result[labelsParameter] = string(serializedLabels)
 	result[annotationParameter] = string(serializedAnnotations)
+
 	return result, nil
 }

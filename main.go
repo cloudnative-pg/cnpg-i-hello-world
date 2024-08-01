@@ -18,8 +18,7 @@ func main() {
 
 	rootCmd.AddCommand(plugin.NewCmd())
 
-	err := rootCmd.Execute()
-	if err != nil {
+	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
