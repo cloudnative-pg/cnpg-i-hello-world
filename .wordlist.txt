@@ -1,4 +1,5 @@
 ClusterLifecycle
+CloudNativePG
 CNPG
 finalizers
 GRPC
