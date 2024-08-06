@@ -24,7 +24,7 @@ This feature enables the plugin to receive events about the cluster
 creation and mutations, this is defined by the following
 
 ```
-// ValidateCreate improves the behaviour of the validating webhook that
+// ValidateCreate improves the behavior of the validating webhook that
 // is called on creation of the Cluster resources
 rpc ValidateClusterCreate(OperatorValidateClusterCreateRequest) returns (OperatorValidateClusterCreateResult) {}
 
@@ -89,7 +89,3 @@ and Backups.
 The custom logic can be injected before the reconciliation and after it is executed.
 
 [API reference](https://github.com/cloudnative-pg/cnpg-i/blob/main/proto/reconciler.proto)
-
-
-
-

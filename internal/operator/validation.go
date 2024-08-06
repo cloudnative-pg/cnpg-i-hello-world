@@ -20,7 +20,7 @@ func (Implementation) ValidateClusterCreate(
 
 	helper, err := pluginhelper.NewDataBuilder(
 		metadata.PluginName,
-		request.Definition,
+		request.GetDefinition(),
 	).Build()
 	if err != nil {
 		return nil, err
@@ -40,7 +40,7 @@ func (Implementation) ValidateClusterChange(
 
 	oldClusterHelper, err := pluginhelper.NewDataBuilder(
 		metadata.PluginName,
-		request.OldCluster,
+		request.GetOldCluster(),
 	).Build()
 	if err != nil {
 		return nil, fmt.Errorf("while parsing old cluster: %w", err)
@@ -48,7 +48,7 @@ func (Implementation) ValidateClusterChange(
 
 	newClusterHelper, err := pluginhelper.NewDataBuilder(
 		metadata.PluginName,
-		request.NewCluster,
+		request.GetNewCluster(),
 	).Build()
 	if err != nil {
 		return nil, fmt.Errorf("while parsing new cluster: %w", err)
@@ -58,5 +58,6 @@ func (Implementation) ValidateClusterChange(
 	newConfiguration, result.ValidationErrors = config.FromParameters(newClusterHelper)
 	oldConfiguration, _ := config.FromParameters(oldClusterHelper)
 	result.ValidationErrors = config.ValidateChanges(oldConfiguration, newConfiguration, newClusterHelper)
+
 	return result, nil
 }
