@@ -5,14 +5,14 @@ go 1.22.0
 toolchain go1.22.5
 
 require (
-	github.com/cloudnative-pg/cloudnative-pg v1.23.2
-	github.com/cloudnative-pg/cnpg-i v0.0.0-20240702073529-2ad7cc75560e
-	github.com/cloudnative-pg/cnpg-i-machinery v0.0.0-20240709131200-26aafa55c7bf
+	github.com/cloudnative-pg/cloudnative-pg v1.23.3
+	github.com/cloudnative-pg/cnpg-i v0.0.0-20240806095732-9ea12e76a6ee
+	github.com/cloudnative-pg/cnpg-i-machinery v0.0.0-20240805150245-6509c5ad7f9a
 	github.com/spf13/cobra v1.8.1
 	google.golang.org/grpc v1.65.0
-	k8s.io/api v0.30.2
-	k8s.io/apimachinery v0.30.2
-	sigs.k8s.io/controller-runtime v0.18.3
+	k8s.io/api v0.30.3
+	k8s.io/apimachinery v0.30.3
+	sigs.k8s.io/controller-runtime v0.18.4
 )
 
 require (
@@ -53,7 +53,7 @@ require (
 	github.com/mxk/go-flowrate v0.0.0-20140419014527-cca7078d478f // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.74.0 // indirect
+	github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring v0.75.2 // indirect
 	github.com/prometheus/client_golang v1.19.1 // indirect
 	github.com/prometheus/client_model v0.5.0 // indirect
 	github.com/prometheus/common v0.48.0 // indirect
@@ -71,11 +71,11 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/exp v0.0.0-20240531132922-fd00a4e0eefc // indirect
-	golang.org/x/net v0.25.0 // indirect
+	golang.org/x/net v0.26.0 // indirect
 	golang.org/x/oauth2 v0.20.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
-	golang.org/x/term v0.20.0 // indirect
-	golang.org/x/text v0.15.0 // indirect
+	golang.org/x/sys v0.22.0 // indirect
+	golang.org/x/term v0.22.0 // indirect
+	golang.org/x/text v0.16.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.4.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240528184218-531527333157 // indirect
@@ -84,11 +84,11 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/apiextensions-apiserver v0.30.1 // indirect
-	k8s.io/client-go v0.30.1 // indirect
-	k8s.io/klog/v2 v2.120.1 // indirect
+	k8s.io/apiextensions-apiserver v0.30.3 // indirect
+	k8s.io/client-go v0.30.3 // indirect
+	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340 // indirect
-	k8s.io/utils v0.0.0-20240502163921-fe8a2dddb1d0 // indirect
+	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
