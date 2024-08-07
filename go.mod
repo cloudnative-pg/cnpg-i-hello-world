@@ -7,7 +7,7 @@ toolchain go1.22.5
 require (
 	github.com/cloudnative-pg/cloudnative-pg v1.23.3
 	github.com/cloudnative-pg/cnpg-i v0.0.0-20240806095732-9ea12e76a6ee
-	github.com/cloudnative-pg/cnpg-i-machinery v0.0.0-20240805150245-6509c5ad7f9a
+	github.com/cloudnative-pg/cnpg-i-machinery v0.0.0-20240807114408-a3bd4ce2d72d
 	github.com/spf13/cobra v1.8.1
 	google.golang.org/grpc v1.65.0
 	k8s.io/api v0.30.3
@@ -70,8 +70,8 @@ require (
 	github.com/subosito/gotenv v1.6.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/exp v0.0.0-20240531132922-fd00a4e0eefc // indirect
-	golang.org/x/net v0.26.0 // indirect
+	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56 // indirect
+	golang.org/x/net v0.27.0 // indirect
 	golang.org/x/oauth2 v0.20.0 // indirect
 	golang.org/x/sys v0.22.0 // indirect
 	golang.org/x/term v0.22.0 // indirect
