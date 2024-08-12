@@ -18,7 +18,6 @@ spec:
     spec:
       containers:
       - image: cnpg-i-hello-world:latest
-        imagePullPolicy: Never
         name: cnpg-i-hello-world
         ports:
         - containerPort: 9090

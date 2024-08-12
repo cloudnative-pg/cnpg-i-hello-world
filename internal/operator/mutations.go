@@ -18,7 +18,7 @@ func (Implementation) MutateCluster(
 ) (*operator.OperatorMutateClusterResult, error) {
 	helper, err := pluginhelper.NewDataBuilder(
 		metadata.PluginName,
-		request.Definition,
+		request.GetDefinition(),
 	).Build()
 	if err != nil {
 		return nil, err

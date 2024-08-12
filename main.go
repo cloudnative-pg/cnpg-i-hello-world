@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+
 	"github.com/cloudnative-pg/cnpg-i-hello-world/cmd/plugin"
 )
 
@@ -17,8 +18,7 @@ func main() {
 
 	rootCmd.AddCommand(plugin.NewCmd())
 
-	err := rootCmd.Execute()
-	if err != nil {
+	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}

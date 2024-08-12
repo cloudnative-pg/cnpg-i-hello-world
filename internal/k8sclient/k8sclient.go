@@ -48,6 +48,7 @@ func Get() (client.Client, error) {
 	}
 
 	currentClient = newClient
+
 	return currentClient, nil
 }
 
