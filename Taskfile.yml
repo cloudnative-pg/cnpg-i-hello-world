@@ -181,9 +181,9 @@ tasks:
     desc: Build a container image for the plugin locally
     vars:
       IMAGE_VERSION: '{{.IMAGE_VERSION | default "latest"}}'
-      IMAGE_NAME: ghcr.io/cloudnative-pg/cnpg-i-hello-world:{{.IMAGE_VERSION}}
+      IMAGE_NAME: cnpg-i-hello-world:{{.IMAGE_VERSION}}
     cmds:
-      - docker build -t ${IMAGE_NAME} .
+      - docker build -t {{.IMAGE_NAME}} .
     sources:
       - ./**
 
@@ -192,5 +192,7 @@ tasks:
     desc: Apply the plugin to a local kind cluster
     deps:
       - local-dev-image
+    env:
+      VERSION: '{{.IMAGE_VERSION | default "latest"}}'
     cmds:
       - ./scripts/run.sh

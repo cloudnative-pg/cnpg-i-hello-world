@@ -15,3 +15,6 @@ kind load docker-image --name=${current_context} cnpg-i-hello-world:${VERSION:-l
 
 # Now we deploy the plugin inside the `cnpg-system` workspace
 kubectl apply -k kubernetes/
+# Patch the deployment to use the provided image and disable imagePullPolicy, since the image is already loaded
+kubectl patch deployments.apps -n cnpg-system hello-world -p \
+  "{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"cnpg-i-hello-world\",\"image\":\"cnpg-i-hello-world:${VERSION:-latest}\",\"imagePullPolicy\":\"Never\"}]}}}}"
