@@ -34,7 +34,7 @@ This plugin implements the Operator and the Lifecycle capabilities.
 This feature enables the plugin to receive events about the cluster creation and
 mutations, this is defined by the following
 
-```
+``` proto
 // ValidateCreate improves the behavior of the validating webhook that
 // is called on creation of the Cluster resources
 rpc ValidateClusterCreate(OperatorValidateClusterCreateRequest) returns (OperatorValidateClusterCreateResult) {}
@@ -47,7 +47,7 @@ rpc ValidateClusterChange(OperatorValidateClusterChangeRequest) returns (Operato
 rpc MutateCluster(OperatorMutateClusterRequest) returns (OperatorMutateClusterResult) {}
 ```
 
-This interface allows the plugins to implement important features like:
+This interface allows plugins to implement important features like:
 
 1. validating the cluster manifest during the creation and mutations
    (it is expected that the plugin validate the parameters assigned to their
@@ -135,7 +135,7 @@ The package `internal/operator` implements this interface.
 
 ### Startup Command
 
-The plugin runs in itw own pod, and its main command is implemented in
+The plugin runs in its own pod, and its main command is implemented in
 the `main.go` file.
 
 This function uses the plugin helper library to create a GRPC server and manage
@@ -150,7 +150,7 @@ Further implementations can be registered within the callback function.
 In the example we propose, that's done for **operator** and for the
 **lifecycle** services in `cmd/plugin/plugin.go`:
 
-```
+``` proto
 operator.RegisterOperatorServer(server, operatorImpl.Implementation{})
 lifecycle.RegisterOperatorLifecycleServer(server, lifecycleImpl.Implementation{})
 ```
