@@ -27,7 +27,7 @@ installed. The plugin also requires certificates to communicate with the
 operator, hence we are also installing [cert-manager](https://cert-manager.io/)
 to manage them.
 
-```shell
+``` shell
 kind create cluster --name cnpg-i-hello-world
 # Choose the latest version of CloudNativePG (at least 1.24)
 kubectl apply --server-side -f \
@@ -41,7 +41,7 @@ Then install the plugin by applying the manifest:
 
 <!-- TODO: reevaluate on release and set release-please to automatically update it-->
 
-```shell
+``` shell
 kubectl apply -f https://github.com/cloudnative-pg/cnpg-i-hello-world/releases/download/v0.1.0/manifest.yaml
 ```
 
@@ -53,7 +53,7 @@ examples in the `doc/examples` directory:
    capability of altering the lifecycle of the CloudNativePG resources.
 2. [Cluster with no parameters](doc/examples/cluster-example-no-parameters.yaml):
    defaults the plugin settings of the cluster. Showcases the plugin capability
-   of altering the defaulting webhook behaviour.
+   of altering the defaulting webhook behavior.
 3. [Cluster with wrong parameters](doc/examples/cluster-example-with-mistake.yaml):
    includes an error in the configuration. Showcases the plugin capability of
    validating its own configuration.

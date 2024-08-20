@@ -102,8 +102,7 @@ The hello-world plugin is using this to add labels and annotations to the pods.
 
 This example implements the lifecycle service capabilities to add labels and
 annotations to the pods. The `OperatorLifecycleServer` interface is implemented
-inside the
-`internal/lifecycle` package.
+inside the `internal/lifecycle` package.
 
 The `OperatorLifecycleServer` interface requires several methods:
 
@@ -148,7 +147,7 @@ struct.
 Further implementations can be registered within the callback function.
 
 In the example we propose, that's done for **operator** and for the
-**lifecycle** services in `cmd/plugin/plugin.go`:
+**lifecycle** services in [file](../cmd/plugin/plugin.go):
 
 ``` proto
 operator.RegisterOperatorServer(server, operatorImpl.Implementation{})
