@@ -1,7 +1,7 @@
 package plugin
 
 import (
-	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/http"
 	"github.com/cloudnative-pg/cnpg-i/pkg/lifecycle"
 	"github.com/cloudnative-pg/cnpg-i/pkg/operator"
 	"github.com/spf13/cobra"
@@ -14,7 +14,7 @@ import (
 
 // NewCmd creates the `plugin` command
 func NewCmd() *cobra.Command {
-	cmd := pluginhelper.CreateMainCmd(identity.Implementation{}, func(server *grpc.Server) error {
+	cmd := http.CreateMainCmd(identity.Implementation{}, func(server *grpc.Server) error {
 		// Register the declared implementations
 		operator.RegisterOperatorServer(server, operatorImpl.Implementation{})
 		lifecycle.RegisterOperatorLifecycleServer(server, lifecycleImpl.Implementation{})

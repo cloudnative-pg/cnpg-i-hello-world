@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/common"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/validation"
 	"github.com/cloudnative-pg/cnpg-i/pkg/operator"
 )
 
@@ -21,7 +22,7 @@ type Configuration struct {
 
 // FromParameters builds a plugin configuration from the configuration parameters
 func FromParameters(
-	helper *pluginhelper.Data,
+	helper *common.Plugin,
 ) (*Configuration, []*operator.ValidationError) {
 	validationErrors := make([]*operator.ValidationError, 0)
 
@@ -30,7 +31,7 @@ func FromParameters(
 		if err := json.Unmarshal([]byte(helper.Parameters[labelsParameter]), &labels); err != nil {
 			validationErrors = append(
 				validationErrors,
-				helper.ValidationErrorForParameter(labelsParameter, err.Error()),
+				validation.BuildErrorForParameter(helper, labelsParameter, err.Error()),
 			)
 		}
 	}
@@ -40,7 +41,7 @@ func FromParameters(
 		if err := json.Unmarshal([]byte(helper.Parameters[annotationParameter]), &annotations); err != nil {
 			validationErrors = append(
 				validationErrors,
-				helper.ValidationErrorForParameter(annotationParameter, err.Error()),
+				validation.BuildErrorForParameter(helper, annotationParameter, err.Error()),
 			)
 		}
 	}
@@ -60,14 +61,14 @@ func FromParameters(
 func ValidateChanges(
 	oldConfiguration *Configuration,
 	newConfiguration *Configuration,
-	helper *pluginhelper.Data,
+	helper *common.Plugin,
 ) []*operator.ValidationError {
 	validationErrors := make([]*operator.ValidationError, 0)
 
 	if !reflect.DeepEqual(oldConfiguration.Labels, newConfiguration.Labels) {
 		validationErrors = append(
 			validationErrors,
-			helper.ValidationErrorForParameter(labelsParameter, "Labels cannot be changed"))
+			validation.BuildErrorForParameter(helper, labelsParameter, "Labels cannot be changed"))
 	}
 
 	return validationErrors
