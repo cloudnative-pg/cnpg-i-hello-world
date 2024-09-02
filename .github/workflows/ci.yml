@@ -29,9 +29,12 @@ jobs:
         run: |
           task manifest
       - name: Publish images
+        if: |
+          github.event_name == 'workflow_dispatch' ||
+          github.event_name.pull_request.head.repo.full_name == github.repository
         env:
           REGISTRY_USER: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ secrets.REPO_PAT }}
+          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: |
           task publish
       - name: Attach manifest to workflow run

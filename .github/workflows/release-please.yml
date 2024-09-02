@@ -5,10 +5,6 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   release-please:
     runs-on: ubuntu-latest
@@ -32,7 +28,7 @@ jobs:
       - name: Create image and manifest
         env:
           REGISTRY_USER: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ secrets.REPO_PAT }}
+          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: |
           task publish
           task manifest
@@ -46,6 +42,8 @@ jobs:
       # TODO: remove release-as after first release. Used to set the first
       #   release version, which would default to 1.0.0. Set the version
       #   manually also for 1.0.0.
+      # We use a GitHub token with write permissions to create the release,
+      # otherwise we won't be able to trigger a new run when pushing on main.
       - name: Run release-please
         run: |
           npx release-please release-pr \
