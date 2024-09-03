@@ -91,7 +91,7 @@ tasks:
       IMAGE_VERSION: '{{regexReplaceAll "(\\d+)/merge" .GITHUB_REF_NAME "pr-${1}"}}'
     env:
       # renovate: datasource=git-refs depName=docker lookupName=https://github.com/purpleclay/daggerverse currentValue=main
-      DAGGER_DOCKER_SHA: dc62f69e82ec1b1d57397549acf724d91b76c5d8
+      DAGGER_DOCKER_SHA: a528aadbb65dbc2afe1afae55bc0b9d3f4f78b32
     cmds:
       - >
         dagger -s call -m github.com/purpleclay/daggerverse/docker@${DAGGER_DOCKER_SHA}
