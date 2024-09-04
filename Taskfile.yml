@@ -63,6 +63,16 @@ tasks:
     sources:
       - ./**/*.go
 
+  build-image:
+    desc: Build a container image for the plugin
+    env:
+      # renovate: datasource=git-refs depName=docker lookupName=https://github.com/purpleclay/daggerverse currentValue=main
+      DAGGER_DOCKER_SHA: dc62f69e82ec1b1d57397549acf724d91b76c5d8
+    cmds:
+      - >
+        GITHUB_REF= dagger -s call -m github.com/purpleclay/daggerverse/docker@${DAGGER_DOCKER_SHA}
+        build --dir . --platform linux/amd64 image > /dev/null
+
   ci:
     desc: Run the CI pipeline
     deps:
@@ -71,6 +81,7 @@ tasks:
       - uncommitted
       - lint
       - go-test
+      - build-image
 
   publish:
     desc: Build and publish a container image for the plugin
