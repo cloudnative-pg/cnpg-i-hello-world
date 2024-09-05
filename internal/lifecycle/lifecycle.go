@@ -10,6 +10,7 @@ import (
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/decoder"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/object"
 	"github.com/cloudnative-pg/cnpg-i/pkg/lifecycle"
+	corev1 "k8s.io/api/core/v1"
 
 	"github.com/cloudnative-pg/cnpg-i-hello-world/internal/config"
 	"github.com/cloudnative-pg/cnpg-i-hello-world/internal/utils"
@@ -100,7 +101,13 @@ func (impl Implementation) reconcileMetadata(
 
 	mutatedPod := pod.DeepCopy()
 
-	object.InjectPluginVolume(mutatedPod)
+	err = object.InjectPluginSidecar(mutatedPod, &corev1.Container{
+		Name:  "pauser",
+		Image: "registry.k8s.io/pause:3.5",
+	}, false)
+	if err != nil {
+		return nil, err
+	}
 
 	// Apply any custom logic needed here, in this example we just add some metadata to the pod
 
@@ -111,7 +118,7 @@ func (impl Implementation) reconcileMetadata(
 		mutatedPod.Annotations[key] = value
 	}
 
-	patch, err := object.CreatePatch(pod, mutatedPod)
+	patch, err := object.CreatePatch(mutatedPod, pod)
 	if err != nil {
 		return nil, err
 	}
