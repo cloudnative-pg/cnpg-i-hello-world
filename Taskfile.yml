@@ -185,7 +185,7 @@ tasks:
     cmds:
       - docker build -t {{.IMAGE_NAME}} .
     sources:
-      - ./**
+      - ./**/*
 
   # TODO: daggerize this
   local-kind-deploy:
