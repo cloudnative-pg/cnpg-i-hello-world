@@ -7,7 +7,7 @@ toolchain go1.23.1
 require (
 	github.com/cloudnative-pg/cloudnative-pg v1.24.0
 	github.com/cloudnative-pg/cnpg-i v0.0.0-20240902182059-c9f193bf825b
-	github.com/cloudnative-pg/cnpg-i-machinery v0.0.0-20240830115027-e9a72db1bfef
+	github.com/cloudnative-pg/cnpg-i-machinery v0.0.0-20240910161515-95a7e6cb16f9
 	github.com/spf13/cobra v1.8.1
 	google.golang.org/grpc v1.66.0
 	k8s.io/api v0.31.0
@@ -96,5 +96,3 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
-
-replace github.com/cloudnative-pg/cnpg-i-machinery => github.com/leonardoce/cnpg-i-machinery v0.0.0-20240904155831-37a273a58c76
