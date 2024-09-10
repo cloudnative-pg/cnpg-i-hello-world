@@ -2,9 +2,9 @@ package operator
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/common"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/decoder"
 	"github.com/cloudnative-pg/cnpg-i/pkg/operator"
 
 	"github.com/cloudnative-pg/cnpg-i-hello-world/internal/config"
@@ -16,15 +16,17 @@ func (Implementation) ValidateClusterCreate(
 	_ context.Context,
 	request *operator.OperatorValidateClusterCreateRequest,
 ) (*operator.OperatorValidateClusterCreateResult, error) {
-	result := &operator.OperatorValidateClusterCreateResult{}
-
-	helper, err := pluginhelper.NewDataBuilder(
-		metadata.PluginName,
-		request.GetDefinition(),
-	).Build()
+	cluster, err := decoder.DecodeClusterJSON(request.GetDefinition())
 	if err != nil {
 		return nil, err
 	}
+
+	result := &operator.OperatorValidateClusterCreateResult{}
+
+	helper := common.NewPlugin(
+		*cluster,
+		metadata.PluginName,
+	)
 
 	_, result.ValidationErrors = config.FromParameters(helper)
 
@@ -38,21 +40,25 @@ func (Implementation) ValidateClusterChange(
 ) (*operator.OperatorValidateClusterChangeResult, error) {
 	result := &operator.OperatorValidateClusterChangeResult{}
 
-	oldClusterHelper, err := pluginhelper.NewDataBuilder(
-		metadata.PluginName,
-		request.GetOldCluster(),
-	).Build()
+	oldCluster, err := decoder.DecodeClusterJSON(request.GetOldCluster())
 	if err != nil {
-		return nil, fmt.Errorf("while parsing old cluster: %w", err)
+		return nil, err
 	}
 
-	newClusterHelper, err := pluginhelper.NewDataBuilder(
-		metadata.PluginName,
-		request.GetNewCluster(),
-	).Build()
+	newCluster, err := decoder.DecodeClusterJSON(request.GetNewCluster())
 	if err != nil {
-		return nil, fmt.Errorf("while parsing new cluster: %w", err)
+		return nil, err
 	}
+
+	oldClusterHelper := common.NewPlugin(
+		*oldCluster,
+		metadata.PluginName,
+	)
+
+	newClusterHelper := common.NewPlugin(
+		*newCluster,
+		metadata.PluginName,
+	)
 
 	var newConfiguration *config.Configuration
 	newConfiguration, result.ValidationErrors = config.FromParameters(newClusterHelper)

@@ -6,7 +6,9 @@ import (
 	"errors"
 
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/logging"
-	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/common"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/decoder"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/object"
 	"github.com/cloudnative-pg/cnpg-i/pkg/lifecycle"
 
 	"github.com/cloudnative-pg/cnpg-i-hello-world/internal/config"
@@ -75,21 +77,30 @@ func (impl Implementation) reconcileMetadata(
 	ctx context.Context,
 	request *lifecycle.OperatorLifecycleRequest,
 ) (*lifecycle.OperatorLifecycleResponse, error) {
-	logger := logging.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
-	helper, err := pluginhelper.NewDataBuilder(
-		metadata.PluginName,
-		request.GetClusterDefinition(),
-	).WithPod(request.GetObjectDefinition()).Build()
+	cluster, err := decoder.DecodeClusterJSON(request.GetClusterDefinition())
 	if err != nil {
 		return nil, err
 	}
+
+	logger := logging.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
+	helper := common.NewPlugin(
+		*cluster,
+		metadata.PluginName,
+	)
+
 	configuration, valErrs := config.FromParameters(helper)
 	if len(valErrs) > 0 {
 		return nil, valErrs[0]
 	}
-	mutatedPod := helper.GetPod().DeepCopy()
 
-	helper.InjectPluginVolume(mutatedPod)
+	pod, err := decoder.DecodePodJSON(request.GetObjectDefinition())
+	if err != nil {
+		return nil, err
+	}
+
+	mutatedPod := pod.DeepCopy()
+
+	object.InjectPluginVolume(mutatedPod)
 
 	// Apply any custom logic needed here, in this example we just add some metadata to the pod
 
@@ -100,7 +111,7 @@ func (impl Implementation) reconcileMetadata(
 		mutatedPod.Annotations[key] = value
 	}
 
-	patch, err := helper.CreatePodJSONPatch(*mutatedPod)
+	patch, err := object.CreatePatch(pod, mutatedPod)
 	if err != nil {
 		return nil, err
 	}

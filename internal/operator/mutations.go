@@ -3,7 +3,9 @@ package operator
 import (
 	"context"
 
-	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/common"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/decoder"
+	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/object"
 	"github.com/cloudnative-pg/cnpg-i/pkg/operator"
 
 	"github.com/cloudnative-pg/cnpg-i-hello-world/internal/config"
@@ -16,20 +18,22 @@ func (Implementation) MutateCluster(
 	_ context.Context,
 	request *operator.OperatorMutateClusterRequest,
 ) (*operator.OperatorMutateClusterResult, error) {
-	helper, err := pluginhelper.NewDataBuilder(
-		metadata.PluginName,
-		request.GetDefinition(),
-	).Build()
+	cluster, err := decoder.DecodeClusterJSON(request.GetDefinition())
 	if err != nil {
 		return nil, err
 	}
+
+	helper := common.NewPlugin(
+		*cluster,
+		metadata.PluginName,
+	)
 
 	config, valErrs := config.FromParameters(helper)
 	if len(valErrs) > 0 {
 		return nil, valErrs[0]
 	}
 
-	mutatedCluster := helper.GetCluster().DeepCopy()
+	mutatedCluster := cluster.DeepCopy()
 	for i := range mutatedCluster.Spec.Plugins {
 		if mutatedCluster.Spec.Plugins[i].Name != metadata.PluginName {
 			continue
@@ -45,7 +49,7 @@ func (Implementation) MutateCluster(
 		}
 	}
 
-	patch, err := helper.CreateClusterJSONPatch(*mutatedCluster)
+	patch, err := object.CreatePatch(cluster, mutatedCluster)
 	if err != nil {
 		return nil, err
 	}
