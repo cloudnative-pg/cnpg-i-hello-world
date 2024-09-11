@@ -1,8 +1,9 @@
 # CNPG-I Hello World Plugin
 
-A [CNPG-I](https://github.com/cloudnative-pg/cnpg-i) plugin to add labels and
-annotations
-to [CloudNativePG](https://github.com/cloudnative-pg/cloudnative-pg/) clusters.
+A [CNPG-I](https://github.com/cloudnative-pg/cnpg-i) plugin to add 
+user-defined labels, annotations and a specific `pause` sidecar
+to the pods of
+[CloudNativePG](https://github.com/cloudnative-pg/cloudnative-pg/) clusters.
 
 This project serves as an introductory guide to bootstrapping
 a [CNPG-I](https://github.com/cloudnative-pg/cnpg-i) plugin and leveraging
