@@ -79,7 +79,8 @@ Some examples of what it can be achieved through the lifecycle:
 
 [API reference](https://github.com/cloudnative-pg/cnpg-i/blob/main/proto/operator_lifecycle.proto):
 
-The hello-world plugin is using this to add labels and annotations to the pods.
+The hello-world plugin is using this to add labels, annotations and a sidecar
+to the pods.
 
 ## Implementation
 
