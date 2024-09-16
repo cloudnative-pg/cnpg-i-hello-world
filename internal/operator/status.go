@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+
 	apiv1 "github.com/cloudnative-pg/cloudnative-pg/api/v1"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/logging"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/clusterstatus"
@@ -57,8 +58,9 @@ func (Implementation) SetStatusInCluster(
 		return clusterstatus.NewSetStatusInClusterResponseBuilder().NoOpResponse(), nil
 	}
 
-	// if for any reson the status want to be wiped out we can use the following:
+	// If for any reason the status needs to be wiped out we can use the following:
 	// clusterstatus.NewSetClusterStatusResponseBuilder().SetEmptyStatusResponse()
 	logger.V(1).Info("setting enabled plugin status")
+
 	return clusterstatus.NewSetStatusInClusterResponseBuilder().JSONStatusResponse(Status{Enabled: true})
 }
