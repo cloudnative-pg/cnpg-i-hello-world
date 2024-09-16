@@ -5,7 +5,7 @@ tasks:
     desc: Run golangci-lint
     env:
       # renovate: datasource=git-refs depName=golangci-lint lookupName=https://github.com/sagikazarmark/daggerverse currentValue=main
-      DAGGER_GOLANGCI_LINT_SHA: 69c04ad464eaeaa80e60fd33ccbdde66f87fe84d
+      DAGGER_GOLANGCI_LINT_SHA: b2bd806a2c43a5a58459aa7969d0e3740e66ec43
     cmds:
       - >
         GITHUB_REF= dagger -s call -m github.com/sagikazarmark/daggerverse/golangci-lint@${DAGGER_GOLANGCI_LINT_SHA}
@@ -67,7 +67,7 @@ tasks:
     desc: Build a container image for the plugin
     env:
       # renovate: datasource=git-refs depName=docker lookupName=https://github.com/purpleclay/daggerverse currentValue=main
-      DAGGER_DOCKER_SHA: e516f2cc24232f5775e6d339c27495b53e751405
+      DAGGER_DOCKER_SHA: dcf4cc7865ada8433f601f728e4a019b68d1fe4e
     cmds:
       - >
         GITHUB_REF= dagger -s call -m github.com/purpleclay/daggerverse/docker@${DAGGER_DOCKER_SHA}
@@ -102,7 +102,7 @@ tasks:
       IMAGE_VERSION: '{{regexReplaceAll "(\\d+)/merge" .GITHUB_REF_NAME "pr-${1}"}}'
     env:
       # renovate: datasource=git-refs depName=docker lookupName=https://github.com/purpleclay/daggerverse currentValue=main
-      DAGGER_DOCKER_SHA: e516f2cc24232f5775e6d339c27495b53e751405
+      DAGGER_DOCKER_SHA: dcf4cc7865ada8433f601f728e4a019b68d1fe4e
     cmds:
       - >
         dagger -s call -m github.com/purpleclay/daggerverse/docker@${DAGGER_DOCKER_SHA}
