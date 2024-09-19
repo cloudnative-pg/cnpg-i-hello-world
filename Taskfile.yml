@@ -5,7 +5,7 @@ tasks:
     desc: Run golangci-lint
     env:
       # renovate: datasource=git-refs depName=golangci-lint lookupName=https://github.com/sagikazarmark/daggerverse currentValue=main
-      DAGGER_GOLANGCI_LINT_SHA: b2bd806a2c43a5a58459aa7969d0e3740e66ec43
+      DAGGER_GOLANGCI_LINT_SHA: ccca98362d39b3df2dcb538d6b4864686b833ee3
     cmds:
       - >
         GITHUB_REF= dagger -s call -m github.com/sagikazarmark/daggerverse/golangci-lint@${DAGGER_GOLANGCI_LINT_SHA}
@@ -17,7 +17,7 @@ tasks:
     desc: Run spellcheck
     env:
       # renovate: datasource=git-refs depName=spellcheck lookupName=https://github.com/cloudnative-pg/daggerverse currentValue=main
-      DAGGER_SPELLCHECK_SHA: 23ffda6100005d626fddb569e8e471587bf32cbf
+      DAGGER_SPELLCHECK_SHA: 84beb380e1aedba35535977d966956b5f020bbd6
     cmds:
       - >
         GITHUB_REF= dagger -s call -m github.com/cloudnative-pg/daggerverse/spellcheck@${DAGGER_SPELLCHECK_SHA}
@@ -31,7 +31,7 @@ tasks:
     desc: Check for conventional commits
     env:
       # renovate: datasource=git-refs depName=commitlint lookupName=https://github.com/cloudnative-pg/daggerverse currentValue=main
-      DAGGER_COMMITLINT_SHA: 23ffda6100005d626fddb569e8e471587bf32cbf
+      DAGGER_COMMITLINT_SHA: 84beb380e1aedba35535977d966956b5f020bbd6
     cmds:
       - >
         GITHUB_REF= dagger -s call -m github.com/cloudnative-pg/daggerverse/commitlint@${DAGGER_COMMITLINT_SHA}
@@ -41,7 +41,7 @@ tasks:
     desc: Check for uncommitted changes
     env:
       # renovate: datasource=git-refs depName=uncommitted lookupName=https://github.com/cloudnative-pg/daggerverse currentValue=main
-      DAGGER_UNCOMMITTED_SHA: 23ffda6100005d626fddb569e8e471587bf32cbf
+      DAGGER_UNCOMMITTED_SHA: 84beb380e1aedba35535977d966956b5f020bbd6
     cmds:
       - GITHUB_REF= dagger -s call -m github.com/cloudnative-pg/daggerverse/uncommitted@${DAGGER_UNCOMMITTED_SHA} check-uncommitted --source . stdout
     sources:
