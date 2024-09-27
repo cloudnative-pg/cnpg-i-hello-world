@@ -31,7 +31,7 @@ jobs:
       - name: Publish images
         if: |
           github.event_name == 'workflow_dispatch' ||
-          github.event_name.pull_request.head.repo.full_name == github.repository
+          github.event.pull_request.head.repo.full_name == github.repository
         env:
           REGISTRY_USER: ${{ github.actor }}
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
