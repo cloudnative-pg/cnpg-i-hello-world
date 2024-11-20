@@ -68,7 +68,7 @@ tasks:
     desc: Build a container image for the plugin
     env:
       # renovate: datasource=git-refs depName=docker lookupName=https://github.com/purpleclay/daggerverse currentValue=main
-      DAGGER_DOCKER_SHA: 8141638b973dc4ff5b2bdb2df88c9ba0ed6b5910
+      DAGGER_DOCKER_SHA: d89d02770517c610472bf17a6ce738243b008bae
     cmds:
       - >
         GITHUB_REF= dagger -s call -m github.com/purpleclay/daggerverse/docker@${DAGGER_DOCKER_SHA}
@@ -103,7 +103,7 @@ tasks:
       IMAGE_VERSION: '{{regexReplaceAll "(\\d+)/merge" .GITHUB_REF_NAME "pr-${1}"}}'
     env:
       # renovate: datasource=git-refs depName=docker lookupName=https://github.com/purpleclay/daggerverse currentValue=main
-      DAGGER_DOCKER_SHA: 8141638b973dc4ff5b2bdb2df88c9ba0ed6b5910
+      DAGGER_DOCKER_SHA: d89d02770517c610472bf17a6ce738243b008bae
     cmds:
       - >
         dagger -s call -m github.com/purpleclay/daggerverse/docker@${DAGGER_DOCKER_SHA}
