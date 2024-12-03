@@ -2,7 +2,7 @@ module github.com/cloudnative-pg/cnpg-i-hello-world
 
 go 1.22.0
 
-toolchain go1.23.3
+toolchain go1.23.4
 
 require (
 	github.com/cloudnative-pg/cloudnative-pg v1.24.0
