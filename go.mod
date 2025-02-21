@@ -5,14 +5,14 @@ go 1.22.0
 toolchain go1.24.0
 
 require (
-	github.com/cloudnative-pg/cloudnative-pg v1.24.0
-	github.com/cloudnative-pg/cnpg-i v0.0.0-20240910144444-89d2e00640c5
-	github.com/cloudnative-pg/cnpg-i-machinery v0.0.0-20240910161515-95a7e6cb16f9
-	github.com/spf13/cobra v1.8.1
-	google.golang.org/grpc v1.66.1
-	k8s.io/api v0.31.0
-	k8s.io/apimachinery v0.31.0
-	sigs.k8s.io/controller-runtime v0.19.0
+	github.com/cloudnative-pg/cloudnative-pg v1.25.0
+	github.com/cloudnative-pg/cnpg-i a6a0ef4d2703
+	github.com/cloudnative-pg/cnpg-i-machinery 991bf0e266c7
+	github.com/spf13/cobra v1.9.1
+	google.golang.org/grpc v1.70.0
+	k8s.io/api v0.32.2
+	k8s.io/apimachinery v0.32.2
+	sigs.k8s.io/controller-runtime v0.20.2
 )
 
 require (
