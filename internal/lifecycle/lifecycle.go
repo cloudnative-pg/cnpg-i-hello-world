@@ -5,11 +5,11 @@ import (
 	"context"
 	"errors"
 
-	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/logging"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/common"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/decoder"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/object"
 	"github.com/cloudnative-pg/cnpg-i/pkg/lifecycle"
+	"github.com/cloudnative-pg/machinery/pkg/log"
 	corev1 "k8s.io/api/core/v1"
 
 	"github.com/cloudnative-pg/cnpg-i-hello-world/internal/config"
@@ -83,7 +83,7 @@ func (impl Implementation) reconcileMetadata(
 		return nil, err
 	}
 
-	logger := logging.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
+	logger := log.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
 	helper := common.NewPlugin(
 		*cluster,
 		metadata.PluginName,
@@ -123,7 +123,7 @@ func (impl Implementation) reconcileMetadata(
 		return nil, err
 	}
 
-	logger.V(0).Info("generated patch", "content", string(patch), "configuration", configuration)
+	logger.Debug("generated patch", "content", string(patch), "configuration", configuration)
 
 	return &lifecycle.OperatorLifecycleResponse{
 		JsonPatch: patch,
