@@ -1,6 +1,6 @@
 # CNPG-I Hello World Plugin
 
-A [CNPG-I](https://github.com/cloudnative-pg/cnpg-i) plugin to add 
+A [CNPG-I](https://github.com/cloudnative-pg/cnpg-i) plugin to add
 user-defined labels, annotations and a specific `pause` sidecar
 to the pods of
 [CloudNativePG](https://github.com/cloudnative-pg/cloudnative-pg/) clusters.
@@ -38,13 +38,16 @@ kubectl apply -f \
   https://github.com/cert-manager/cert-manager/releases/download/vX.Y.Z/cert-manager.yaml
 ```
 
-Then install the plugin by applying the manifest:
-
-<!-- TODO: reevaluate on release and set release-please to automatically update it-->
+Then install the plugin by applying the manifest.
+The easiest way to obtain the manifest may be as an artifact created by the
+[`release-please` workflow](https://github.com/cloudnative-pg/cnpg-i-hello-world/actions/workflows/release-please.yml).
+You can download it and apply it locally:
 
 ``` shell
-kubectl apply -f https://github.com/cloudnative-pg/cnpg-i-hello-world/releases/download/v0.1.0/manifest.yaml
+kubectl apply -f LOCAL-FOLDER/manifest.yaml
 ```
+
+<!-- TODO: reevaluate on release and set release-please to automatically update it-->
 
 Finally, create a cluster resource to see the plugin in action. There are three
 examples in the `doc/examples` directory:
