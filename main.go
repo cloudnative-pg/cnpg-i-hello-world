@@ -8,13 +8,21 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/cloudnative-pg/cnpg-i-hello-world/cmd/plugin"
+	"github.com/cloudnative-pg/machinery/pkg/log"
 )
 
 func main() {
+	logFlags := &log.Flags{}
 	rootCmd := &cobra.Command{
 		Use:   "cnpg-i-hello-world",
 		Short: "A plugin example",
+		PersistentPreRunE: func(_ *cobra.Command, _ []string) error {
+			logFlags.ConfigureLogging()
+			return nil
+		},
 	}
+
+	logFlags.AddFlags(rootCmd.PersistentFlags())
 
 	rootCmd.AddCommand(plugin.NewCmd())
 
