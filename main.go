@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cloudnative-pg/machinery/pkg/log"
 	"github.com/spf13/cobra"
+	corelog "sigs.k8s.io/controller-runtime/pkg/log"
+	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	"github.com/cloudnative-pg/cnpg-i-hello-world/cmd/plugin"
+	"github.com/cloudnative-pg/machinery/pkg/log"
 )
 
 func main() {
@@ -22,6 +24,7 @@ func main() {
 		},
 	}
 
+	corelog.SetLogger(zap.New())
 	logFlags.AddFlags(rootCmd.PersistentFlags())
 
 	rootCmd.AddCommand(plugin.NewCmd())
