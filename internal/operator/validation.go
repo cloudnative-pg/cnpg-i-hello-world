@@ -16,7 +16,7 @@ func (Implementation) ValidateClusterCreate(
 	_ context.Context,
 	request *operator.OperatorValidateClusterCreateRequest,
 ) (*operator.OperatorValidateClusterCreateResult, error) {
-	cluster, err := decoder.DecodeClusterJSON(request.GetDefinition())
+	cluster, err := decoder.DecodeClusterLenient(request.GetDefinition())
 	if err != nil {
 		return nil, err
 	}
@@ -40,12 +40,12 @@ func (Implementation) ValidateClusterChange(
 ) (*operator.OperatorValidateClusterChangeResult, error) {
 	result := &operator.OperatorValidateClusterChangeResult{}
 
-	oldCluster, err := decoder.DecodeClusterJSON(request.GetOldCluster())
+	oldCluster, err := decoder.DecodeClusterLenient(request.GetOldCluster())
 	if err != nil {
 		return nil, err
 	}
 
-	newCluster, err := decoder.DecodeClusterJSON(request.GetNewCluster())
+	newCluster, err := decoder.DecodeClusterLenient(request.GetNewCluster())
 	if err != nil {
 		return nil, err
 	}
