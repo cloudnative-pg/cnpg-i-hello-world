@@ -25,7 +25,7 @@ func (Implementation) SetStatusInCluster(
 ) (*operator.SetStatusInClusterResponse, error) {
 	logger := log.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
 
-	cluster, err := decoder.DecodeClusterJSON(req.GetCluster())
+	cluster, err := decoder.DecodeClusterLenient(req.GetCluster())
 	if err != nil {
 		return nil, err
 	}

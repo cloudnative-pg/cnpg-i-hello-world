@@ -78,7 +78,7 @@ func (impl Implementation) reconcileMetadata(
 	ctx context.Context,
 	request *lifecycle.OperatorLifecycleRequest,
 ) (*lifecycle.OperatorLifecycleResponse, error) {
-	cluster, err := decoder.DecodeClusterJSON(request.GetClusterDefinition())
+	cluster, err := decoder.DecodeClusterLenient(request.GetClusterDefinition())
 	if err != nil {
 		return nil, err
 	}

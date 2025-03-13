@@ -18,7 +18,7 @@ func (Implementation) MutateCluster(
 	_ context.Context,
 	request *operator.OperatorMutateClusterRequest,
 ) (*operator.OperatorMutateClusterResult, error) {
-	cluster, err := decoder.DecodeClusterJSON(request.GetDefinition())
+	cluster, err := decoder.DecodeClusterLenient(request.GetDefinition())
 	if err != nil {
 		return nil, err
 	}
