@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/cloudnative-pg/machinery/pkg/log"
 	"github.com/spf13/cobra"
 
 	"github.com/cloudnative-pg/cnpg-i-hello-world/cmd/plugin"
-	"github.com/cloudnative-pg/machinery/pkg/log"
 )
 
 func main() {
