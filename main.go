@@ -16,10 +16,6 @@ func main() {
 	rootCmd := &cobra.Command{
 		Use:   "cnpg-i-hello-world",
 		Short: "A plugin example",
-		PersistentPreRunE: func(_ *cobra.Command, _ []string) error {
-			logFlags.ConfigureLogging()
-			return nil
-		},
 	}
 
 	logFlags.AddFlags(rootCmd.PersistentFlags())
