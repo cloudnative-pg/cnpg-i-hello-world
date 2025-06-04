@@ -74,20 +74,6 @@ func ValidateChanges(
 	return validationErrors
 }
 
-// applyDefaults fills the configuration with the defaults
-func (config *Configuration) applyDefaults() {
-	if len(config.Labels) == 0 {
-		config.Labels = map[string]string{
-			"plugin-metadata": "default",
-		}
-	}
-	if len(config.Annotations) == 0 {
-		config.Annotations = map[string]string{
-			"plugin-metadata": "default",
-		}
-	}
-}
-
 // ToParameters serialize the configuration to a map of plugin parameters
 func (config *Configuration) ToParameters() (map[string]string, error) {
 	result := make(map[string]string)
@@ -103,4 +89,18 @@ func (config *Configuration) ToParameters() (map[string]string, error) {
 	result[annotationParameter] = string(serializedAnnotations)
 
 	return result, nil
+}
+
+// applyDefaults fills the configuration with the defaults
+func (config *Configuration) applyDefaults() {
+	if len(config.Labels) == 0 {
+		config.Labels = map[string]string{
+			"plugin-metadata": "default",
+		}
+	}
+	if len(config.Annotations) == 0 {
+		config.Annotations = map[string]string{
+			"plugin-metadata": "default",
+		}
+	}
 }
