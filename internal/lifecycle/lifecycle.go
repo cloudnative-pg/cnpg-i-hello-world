@@ -37,7 +37,7 @@ func (impl Implementation) GetCapabilities(
 						Type: lifecycle.OperatorOperationType_TYPE_CREATE,
 					},
 					{
-						Type: lifecycle.OperatorOperationType_TYPE_PATCH,
+						Type: lifecycle.OperatorOperationType_TYPE_EVALUATE,
 					},
 				},
 			},
@@ -63,9 +63,8 @@ func (impl Implementation) LifecycleHook(
 	switch kind {
 	case "Pod":
 		switch *operation {
-		case lifecycle.OperatorOperationType_TYPE_CREATE, lifecycle.OperatorOperationType_TYPE_PATCH,
-			lifecycle.OperatorOperationType_TYPE_UPDATE:
-			return impl.reconcileMetadata(ctx, request)
+		case lifecycle.OperatorOperationType_TYPE_CREATE, lifecycle.OperatorOperationType_TYPE_EVALUATE:
+			return impl.reconcilePod(ctx, request)
 		}
 		// add any other custom logic to execute based on the operation
 	}
@@ -73,8 +72,8 @@ func (impl Implementation) LifecycleHook(
 	return &lifecycle.OperatorLifecycleResponse{}, nil
 }
 
-// LifecycleHook is called when creating Kubernetes services
-func (impl Implementation) reconcileMetadata(
+// reconcilePod is called when creating an instance Pod
+func (impl Implementation) reconcilePod(
 	ctx context.Context,
 	request *lifecycle.OperatorLifecycleRequest,
 ) (*lifecycle.OperatorLifecycleResponse, error) {
