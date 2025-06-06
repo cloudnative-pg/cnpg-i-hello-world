@@ -127,7 +127,7 @@ tasks:
       # where the branch name is suffixed with /merge. Prepend pr- to the branch name on PRs.
       IMAGE_VERSION: '{{regexReplaceAll "(\\d+)/merge" .GITHUB_REF_NAME "pr-${1}"}}'
     env:
-      # renovate: datasource=git-refs depName=kustomize lookupName=github.com/sagikazarmark/daggerverse currentValue=main
+      # renovate: datasource=git-refs depName=kustomize lookupName=https://github.com/sagikazarmark/daggerverse currentValue=main
       DAGGER_KUSTOMIZE_SHA: d814d0d7c421348f51cdda96870a05ca2aa8e96a
     cmds:
       - >
@@ -150,7 +150,7 @@ tasks:
         - GITHUB_REF_NAME
         - GITHUB_TOKEN
     env:
-      # renovate: datasource=git-refs depName=gh lookupName=github.com/sagikazarmark/daggerverse
+      # renovate: datasource=git-refs depName=gh lookupName=https://github.com/sagikazarmark/daggerverse
       DAGGER_GH_SHA: 8f444e2c2b8e8162cea76d702086034ed3edc4f1
     preconditions:
       - sh: "[[ {{.GITHUB_REF}} =~ 'refs/tags/v.*' ]]"
