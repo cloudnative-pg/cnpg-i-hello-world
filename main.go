@@ -12,13 +12,15 @@ import (
 )
 
 func main() {
+	cobra.EnableTraverseRunHooks = true
+
 	logFlags := &log.Flags{}
 	rootCmd := &cobra.Command{
 		Use:   "cnpg-i-hello-world",
 		Short: "A plugin example",
-		PersistentPreRunE: func(_ *cobra.Command, _ []string) error {
+		PersistentPreRun: func(cmd *cobra.Command, _ []string) {
 			logFlags.ConfigureLogging()
-			return nil
+			cmd.SetContext(log.IntoContext(cmd.Context(), log.GetLogger()))
 		},
 	}
 
