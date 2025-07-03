@@ -13,9 +13,11 @@ linters:
     - godot
     - ireturn
     - mnd
+    - noinlineerr
     - varnamelen
     - wrapcheck
     - wsl
+    - wsl_v5
   settings:
     lll:
       line-length: 120
@@ -23,6 +25,11 @@ linters:
       block-size: 3
   exclusions:
     generated: lax
+    rules:
+      - linters:
+          - revive
+        path: /utils/[^/]+.go
+        text: avoid meaningless package names
     presets:
       - comments
       - common-false-positives
