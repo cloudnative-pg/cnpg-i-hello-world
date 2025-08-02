@@ -54,7 +54,14 @@ func (impl Implementation) LifecycleHook(
 	if err != nil {
 		return nil, err
 	}
-	operation := request.GetOperationType().GetType().Enum()
+
+	operationType := request.GetOperationType()
+	if operationType == nil {
+		return nil, errors.New("operation type is nil")
+	}
+
+	operation := operationType.GetType().Enum()
+
 	if operation == nil {
 		return nil, errors.New("no operation set")
 	}
@@ -83,7 +90,7 @@ func (impl Implementation) reconcileMetadata(
 		return nil, err
 	}
 
-	logger := log.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
+	logger := log.FromContext(ctx).WithName("cnpg_i_example_lifecycle")
 	helper := common.NewPlugin(
 		*cluster,
 		metadata.PluginName,
@@ -101,6 +108,14 @@ func (impl Implementation) reconcileMetadata(
 
 	mutatedPod := pod.DeepCopy()
 
+	// Initialize maps if they're nil
+	if mutatedPod.Labels == nil {
+		mutatedPod.Labels = make(map[string]string)
+	}
+	if mutatedPod.Annotations == nil {
+		mutatedPod.Annotations = make(map[string]string)
+	}
+
 	err = object.InjectPluginSidecar(mutatedPod, &corev1.Container{
 		Name:  "pauser",
 		Image: "registry.k8s.io/pause:3.5",
@@ -110,7 +125,6 @@ func (impl Implementation) reconcileMetadata(
 	}
 
 	// Apply any custom logic needed here, in this example we just add some metadata to the pod
-
 	for key, value := range configuration.Labels {
 		mutatedPod.Labels[key] = value
 	}

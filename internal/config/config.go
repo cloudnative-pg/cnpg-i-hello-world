@@ -24,6 +24,12 @@ type Configuration struct {
 func FromParameters(
 	helper *common.Plugin,
 ) (*Configuration, []*operator.ValidationError) {
+	if helper == nil {
+		return nil, []*operator.ValidationError{
+			validation.BuildErrorForParameter(nil, "helper", "plugin helper cannot be nil"),
+		}
+	}
+
 	validationErrors := make([]*operator.ValidationError, 0)
 
 	var labels map[string]string

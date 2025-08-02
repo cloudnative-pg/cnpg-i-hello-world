@@ -23,7 +23,14 @@ func (Implementation) SetStatusInCluster(
 	ctx context.Context,
 	req *operator.SetStatusInClusterRequest,
 ) (*operator.SetStatusInClusterResponse, error) {
-	logger := log.FromContext(ctx).WithName("cnpg_i_example_lifecyle")
+	// Add timeout check
+	select {
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	default:
+	}
+
+	logger := log.FromContext(ctx).WithName("cnpg_i_example_lifecycle")
 
 	cluster, err := decoder.DecodeClusterLenient(req.GetCluster())
 	if err != nil {
@@ -40,21 +47,27 @@ func (Implementation) SetStatusInCluster(
 	}
 
 	if pluginEntry == nil {
+		// Check if plugin status slice is empty
+		if len(plg.Cluster.Status.PluginStatus) == 0 {
+			return nil, errors.New("no plugin status entries found in cluster")
+		}
+
 		err := errors.New("plugin entry not found in the cluster status")
-		logger.Error(err, "while fetching the plugin status", "plugin", metadata.PluginName)
-		return nil, errors.New("plugin entry not found")
+		logger.Error(err, "while fetching the plugin status",
+			"plugin", metadata.PluginName,
+			"available_plugins", plg.Cluster.Status.PluginStatus)
+		return nil, err
 	}
 
 	var status Status
 	if pluginEntry.Status != "" {
 		if err := json.Unmarshal([]byte(pluginEntry.Status), &status); err != nil {
-			logger.Error(err, "while unmarshalling plugin status",
-				"entry", pluginEntry)
+			logger.Error(err, "while unmarshalling plugin status", "entry", pluginEntry)
 			return nil, err
 		}
 	}
 	if status.Enabled {
-		logger.Debug("plugin is enabled, no action taken")
+		logger.Debug("plugin is already enabled, no action needed")
 		return clusterstatus.NewSetStatusInClusterResponseBuilder().NoOpResponse(), nil
 	}
 
