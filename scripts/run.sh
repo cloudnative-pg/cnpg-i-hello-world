@@ -18,6 +18,11 @@ fi
 # Constants
 registry_name=registry.dev
 
+if ! docker ps --format '{{.Names}}' | grep -q "^${registry_name}$"; then
+    docker start "${registry_name}" >/dev/null 2>&1 || \
+    docker run -d --restart=always -p 5000:5000 --name "${registry_name}" registry:2 >/dev/null
+fi
+
 load_image_registry() {
   local image=$1
 
