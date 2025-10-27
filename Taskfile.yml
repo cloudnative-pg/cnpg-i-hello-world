@@ -9,7 +9,7 @@ tasks:
     desc: Run golangci-lint
     env:
       # renovate: datasource=git-refs depName=golangci-lint lookupName=https://github.com/sagikazarmark/daggerverse currentValue=main
-      DAGGER_GOLANGCI_LINT_SHA: ceffda4aebd349a24fc00e591b4ed9b801535b65
+      DAGGER_GOLANGCI_LINT_SHA: 6133ad18e131b891d4723b8e25d69f5de077b472
     cmds:
       - >
         GITHUB_REF= dagger -sc "github.com/sagikazarmark/daggerverse/golangci-lint@${DAGGER_GOLANGCI_LINT_SHA} |
@@ -57,7 +57,7 @@ tasks:
       # renovate: datasource=docker depName=golang versioning=semver
       GOLANG_IMAGE_VERSION: 1.25.3
       # renovate: datasource=git-refs depName=go lookupName=https://github.com/sagikazarmark/daggerverse currentValue=main
-      DAGGER_GO_SHA: ceffda4aebd349a24fc00e591b4ed9b801535b65
+      DAGGER_GO_SHA: 6133ad18e131b891d4723b8e25d69f5de077b472
     cmds:
       - >
         GITHUB_REF= dagger -s call -m github.com/sagikazarmark/daggerverse/go@${DAGGER_GO_SHA}
@@ -132,7 +132,7 @@ tasks:
       IMAGE_VERSION: '{{regexReplaceAll "(\\d+)/merge" .GITHUB_REF_NAME "pr-${1}"}}'
     env:
       # renovate: datasource=git-refs depName=kustomize lookupName=https://github.com/sagikazarmark/daggerverse currentValue=main
-      DAGGER_KUSTOMIZE_SHA: ceffda4aebd349a24fc00e591b4ed9b801535b65
+      DAGGER_KUSTOMIZE_SHA: 6133ad18e131b891d4723b8e25d69f5de077b472
     cmds:
       - >
         dagger -s call -m github.com/sagikazarmark/daggerverse/kustomize@${DAGGER_KUSTOMIZE_SHA}
@@ -155,7 +155,7 @@ tasks:
         - GITHUB_TOKEN
     env:
       # renovate: datasource=git-refs depName=gh lookupName=https://github.com/sagikazarmark/daggerverse
-      DAGGER_GH_SHA: ceffda4aebd349a24fc00e591b4ed9b801535b65
+      DAGGER_GH_SHA: 6133ad18e131b891d4723b8e25d69f5de077b472
     preconditions:
       - sh: "[[ {{.GITHUB_REF}} =~ 'refs/tags/v.*' ]]"
         msg: not a tag, failing
