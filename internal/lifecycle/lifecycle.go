@@ -1,4 +1,3 @@
-// Package lifecycle implements the lifecycle hooks
 package lifecycle
 
 import (
@@ -101,7 +100,7 @@ func (impl Implementation) reconcileMetadata(
 
 	mutatedPod := pod.DeepCopy()
 
-	err = object.InjectPluginSidecar(mutatedPod, &corev1.Container{
+	err = object.InjectPluginInitContainerSidecarSpec(&mutatedPod.Spec, &corev1.Container{
 		Name:  "pauser",
 		Image: "registry.k8s.io/pause:3.5",
 	}, false)
