@@ -3,6 +3,7 @@ package lifecycle
 import (
 	"context"
 	"errors"
+	"maps"
 
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/common"
 	"github.com/cloudnative-pg/cnpg-i-machinery/pkg/pluginhelper/decoder"
@@ -108,13 +109,8 @@ func (impl Implementation) reconcilePod(
 	}
 
 	// Apply any custom logic needed here, in this example we just add some metadata to the pod
-
-	for key, value := range configuration.Labels {
-		mutatedPod.Labels[key] = value
-	}
-	for key, value := range configuration.Annotations {
-		mutatedPod.Annotations[key] = value
-	}
+	maps.Copy(mutatedPod.Labels, configuration.Labels)
+	maps.Copy(mutatedPod.Annotations, configuration.Annotations)
 
 	patch, err := object.CreatePatch(mutatedPod, pod)
 	if err != nil {
