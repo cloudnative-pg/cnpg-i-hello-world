@@ -9,8 +9,8 @@ require (
 	github.com/cloudnative-pg/machinery v0.4.0
 	github.com/spf13/cobra v1.10.2
 	google.golang.org/grpc v1.81.0
-	k8s.io/api v0.36.0
-	k8s.io/apimachinery v0.36.0
+	k8s.io/api v0.36.1
+	k8s.io/apimachinery v0.36.1
 	sigs.k8s.io/controller-runtime v0.24.0
 )
 
