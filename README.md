@@ -64,5 +64,9 @@ examples in the `doc/examples` directory:
 
 ## Plugin development
 
+Plugin development
+
+For setup instructions and development guide, refer to [plugin Setup documentation](doc/plugin_dev_setup.md).
+
 For additional details on the plugin implementation refer to
 the [development documentation](doc/development.md).
